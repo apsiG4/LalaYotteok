@@ -277,3 +277,67 @@ h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.3; margin-bottom: 12p
   .menu-extra .menu-list ul { columns: 1; }
   .hero-tag { left: 10px; }
 }
+
+/* Keranjang pesanan */
+.qty { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; }
+.qty-btn {
+  width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--rose);
+  background: var(--white); color: var(--rose); font-size: 1.1rem; line-height: 1;
+  cursor: pointer; transition: .2s; font-family: inherit; padding: 0;
+}
+.qty-btn:hover { background: var(--rose); color: var(--white); }
+.qty-num { min-width: 18px; text-align: center; }
+.menu-foot.variants { flex-direction: column; align-items: stretch; gap: 8px; }
+.variant { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.variant-name { font-size: .92rem; }
+.variant-name b { color: var(--red); }
+.cart-item.active .qty-num { color: var(--rose); }
+.menu-card:has(.cart-item.active) { box-shadow: 0 0 0 3px var(--pink), var(--shadow); }
+
+.addon-hint { color: var(--muted); font-size: .87rem; margin: -4px 0 10px; }
+.addon-hint.shake { animation: shake .4s; color: var(--rose); font-weight: 600; }
+@keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.menu-list li.addon-item { align-items: center; }
+.addon-info { display: flex; flex-direction: column; }
+.addon-info small { font-weight: 600; color: var(--rose); }
+.menu-list li.addon-item span.qty { font-weight: 600; }
+.addon-item.active .addon-info { color: var(--rose); font-weight: 600; }
+.addon-item.locked { opacity: .45; }
+.addon-item.locked .qty-btn { cursor: not-allowed; }
+.addon-item.locked .qty-btn:hover { background: var(--white); color: var(--rose); }
+
+.order-box { background: var(--white); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); margin-top: 24px; border: 2px solid var(--pink-soft); scroll-margin-top: 100px; }
+.order-box h3 { color: var(--rose); margin-bottom: 12px; }
+.order-lines { list-style: none; }
+.order-lines li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px dashed #f1c6de; }
+.order-lines li span:last-child { font-weight: 600; white-space: nowrap; }
+.order-lines small { color: var(--muted); }
+.order-empty { color: var(--muted); font-size: .9rem; border-bottom: 0 !important; }
+.order-fields { display: grid; grid-template-columns: 200px 1fr; gap: 16px; margin-top: 16px; }
+.order-fields label { display: flex; flex-direction: column; gap: 6px; font-size: .85rem; font-weight: 600; color: var(--dark); }
+.order-fields select, .order-fields input {
+  font-family: inherit; font-size: .92rem; padding: 10px 12px; border-radius: 12px;
+  border: 1.5px solid #f1c6de; background: var(--pink-bg); color: var(--dark);
+}
+.order-fields select:focus, .order-fields input:focus { outline: none; border-color: var(--rose); }
+.order-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; padding-top: 16px; border-top: 2px solid var(--pink-soft); }
+.order-foot strong { color: var(--rose); font-size: 1.2rem; }
+.btn.is-disabled { opacity: .45; cursor: not-allowed; }
+.btn.is-disabled:hover { transform: none; box-shadow: none; background: var(--rose); }
+
+.cart-bar {
+  position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 140%);
+  background: var(--rose); color: var(--white); padding: 12px 22px; border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(214, 51, 122, .35); z-index: 90; font-size: .92rem;
+  display: flex; align-items: center; gap: 8px; white-space: nowrap; transition: transform .3s;
+}
+.cart-bar.show { transform: translate(-50%, 0); }
+.cart-bar.show.hide { transform: translate(-50%, 140%); }
+.cart-bar-cta { margin-left: 6px; font-weight: 600; text-decoration: underline; }
+@media (max-width: 520px) {
+  .order-fields { grid-template-columns: 1fr; }
+  .cart-bar { left: 16px; right: 88px; transform: translateY(140%); justify-content: center; padding: 12px 14px; font-size: .85rem; }
+  .cart-bar.show { transform: translateY(0); }
+  .cart-bar.show.hide { transform: translateY(140%); }
+  .cart-bar-cta { display: none; }
+}
