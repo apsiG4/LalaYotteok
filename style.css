@@ -51,11 +51,13 @@ a { color: inherit; text-decoration: none; }
   backdrop-filter: blur(8px);
   border-bottom: 1px solid #f7d4e8;
 }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; height: 76px; width: min(1320px, 95%); }
 .brand { display: flex; align-items: center; gap: 10px; font-family: "Pacifico", cursive; font-size: 1.45rem; color: var(--rose); }
 .brand img { width: 50px; height: 50px; border-radius: 50%; }
-.nav-links { display: flex; align-items: center; gap: 26px; font-weight: 500; }
-.nav-links a:not(.btn) { position: relative; }
+.nav-links { display: flex; align-items: center; gap: 20px; font-weight: 500; font-size: .95rem; }
+.brand, .nav-links .btn { white-space: nowrap; }
+.brand { flex-shrink: 0; }
+.nav-links a:not(.btn) { position: relative; white-space: nowrap; }
 .nav-links a:not(.btn)::after {
   content: ""; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px;
   background: var(--rose); transition: width .25s;
@@ -258,7 +260,7 @@ h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.3; margin-bottom: 12p
   .location { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 768px) {
+@media (max-width: 1279px) {
   .nav-burger { display: flex; }
   .nav-links {
     position: absolute; top: 76px; left: 0; right: 0; flex-direction: column; gap: 18px;
@@ -266,6 +268,8 @@ h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.3; margin-bottom: 12p
     display: none;
   }
   .nav-toggle:checked ~ .nav-links { display: flex; }
+}
+@media (max-width: 768px) {
   .section { padding: 70px 0; }
   .menu-extra, .steps, .online-grid { grid-template-columns: 1fr; }
   .map-box { height: 300px; }
@@ -340,4 +344,77 @@ h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.3; margin-bottom: 12p
   .cart-bar.show { transform: translateY(0); }
   .cart-bar.show.hide { transform: translateY(140%); }
   .cart-bar-cta { display: none; }
+}
+
+/* ===== Sejarah (timeline) ===== */
+.timeline { position: relative; max-width: 860px; margin: 0 auto; }
+.timeline::before {
+  content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(var(--pink), var(--rose)); transform: translateX(-50%); border-radius: 3px;
+}
+.tl-item { position: relative; display: flex; justify-content: flex-start; padding-right: 50%; margin-bottom: 28px; }
+.tl-item:nth-child(even) { justify-content: flex-end; padding-right: 0; padding-left: 50%; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-year {
+  position: absolute; left: 50%; top: 18px; transform: translateX(-50%); z-index: 1;
+  background: var(--rose); color: var(--white); font-weight: 700; font-size: .85rem;
+  padding: 6px 14px; border-radius: 50px; box-shadow: 0 0 0 5px var(--pink-bg);
+}
+.tl-card {
+  background: var(--white); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow);
+  width: calc(100% - 56px); border-left: 5px solid var(--pink);
+}
+.tl-item:nth-child(even) .tl-card { border-left: 0; border-right: 5px solid var(--pink); margin-left: 56px; }
+.tl-card h3 { color: var(--rose); font-size: 1.05rem; margin-bottom: 6px; }
+.tl-card p { color: var(--muted); font-size: .9rem; }
+
+/* ===== Struktur organisasi ===== */
+.org { display: flex; flex-direction: column; align-items: center; }
+.org-top { position: relative; padding-bottom: 36px; }
+.org-top::after { content: ""; position: absolute; left: 50%; bottom: 0; width: 3px; height: 36px; background: var(--pink); transform: translateX(-50%); }
+.org-branches {
+  position: relative; display: grid; grid-template-columns: 1fr 3fr; gap: 24px; width: 100%;
+  padding-top: 36px;
+}
+.org-branches::before {
+  content: ""; position: absolute; top: 0; height: 3px; background: var(--pink);
+  left: calc((100% - 24px) / 8); right: calc((100% - 24px) * 3 / 8);
+}
+.org-group { position: relative; background: rgba(255, 255, 255, .55); border-radius: 24px; padding: 18px; text-align: center; }
+.org-group::before { content: ""; position: absolute; left: 50%; top: -36px; width: 3px; height: 36px; background: var(--pink); transform: translateX(-50%); }
+.org-group-label {
+  display: inline-block; background: var(--rose); color: var(--white); font-weight: 600; font-size: .82rem;
+  padding: 5px 16px; border-radius: 50px; margin-bottom: 16px; letter-spacing: .5px;
+}
+.org-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; }
+.org-card {
+  background: var(--white); border-radius: var(--radius); padding: 24px 18px; box-shadow: var(--shadow);
+  text-align: center; transition: transform .25s;
+}
+.org-card:hover { transform: translateY(-5px); }
+.org-card.owner { width: 280px; border-top: 6px solid var(--rose); }
+.org-card.manager { width: 280px; border-top: 6px solid var(--pink); }
+.org-avatar {
+  width: 72px; height: 72px; margin: 0 auto 12px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 700; font-size: 1.3rem; color: var(--white);
+  background: linear-gradient(135deg, var(--pink), var(--rose)); box-shadow: 0 0 0 5px var(--pink-soft);
+}
+.org-card h3 { font-size: 1.02rem; }
+.org-role { display: block; color: var(--rose); font-weight: 600; font-size: .85rem; margin: 2px 0 8px; }
+.org-card p { color: var(--muted); font-size: .84rem; }
+
+@media (max-width: 992px) {
+  .org-branches { grid-template-columns: 1fr; padding-top: 0; gap: 36px; }
+  .org-branches::before { display: none; }
+  .org-group::before { top: -36px; }
+  .org-group-kasir .org-row { max-width: 280px; margin: 0 auto; }
+}
+@media (max-width: 768px) {
+  .timeline::before { left: 22px; }
+  .tl-item, .tl-item:nth-child(even) { padding: 0 0 0 56px; justify-content: flex-start; }
+  .tl-year { left: 22px; top: -4px; }
+  .tl-card, .tl-item:nth-child(even) .tl-card { width: 100%; margin: 22px 0 0; border-right: 0; border-left: 5px solid var(--pink); }
+}
+@media (max-width: 520px) {
+  .org-card.owner, .org-card.manager { width: 100%; max-width: 280px; }
 }
